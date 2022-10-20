@@ -2,7 +2,7 @@ package com.example.backend.service.impl;
 
 import com.example.backend.dao.Students;
 import com.example.backend.exception.CustomException;
-import com.example.backend.exception.ErrorCode;
+import com.example.backend.exception.ApiError;
 import com.example.backend.repository.StudentsRepository;
 import com.example.backend.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,21 @@ public class StudentsServiceImpl implements StudentsService {
     }
 
     @Override
-    public void deleteStudent(Integer id) {
-        Students oldStudentData = studentsRepository.findById(id).orElseThrow(
-                () -> new CustomException(ErrorCode.STUDENT_NOT_FOUND.getErrorCode(), ErrorCode.STUDENT_NOT_FOUND.getErrorMessage()));
-        studentsRepository.deleteById(id);
+    public Students getStudentById(Integer id) {
+        Students students = studentsRepository.findById(id).orElseThrow(
+                () -> new CustomException( ApiError.STUDENT_NOT_FOUND.getApiError(), ApiError.STUDENT_NOT_FOUND.getErrorMessage()));
+        return students;
+    }
+
+    @Override
+    public List<Students> getAllStudents() {
+        return studentsRepository.findAll();
+    }
+
+
+    @Override
+    public Students addStudent(Students student) {
+        return studentsRepository.save(student);
     }
 
     @Override
@@ -33,7 +44,7 @@ public class StudentsServiceImpl implements StudentsService {
 
 
         Students oldStudentData = studentsRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ErrorCode.STUDENT_NOT_FOUND.getErrorCode(), ErrorCode.STUDENT_NOT_FOUND.getErrorMessage()));
+                () -> new CustomException(ApiError.STUDENT_NOT_FOUND.getApiError(), ApiError.STUDENT_NOT_FOUND.getErrorMessage()));
             Students newStudentData = Students.builder()
                     .studentId(studentId)
                     .firstName(student.getFirstName() != null ? student.getFirstName() : oldStudentData.getFirstName())
@@ -42,25 +53,18 @@ public class StudentsServiceImpl implements StudentsService {
                     .build();
             return studentsRepository.save(newStudentData);
 
-
-
     }
+
 
     @Override
-    public Students addStudent(Students student) {
-        return studentsRepository.save(student);
+    public void deleteStudent(Integer id) {
+        try{
+            studentsRepository.deleteById(id);
+        }
+        catch (Exception e) {
+            throw new CustomException(ApiError.STUDENT_NOT_FOUND.getApiError(), ApiError.STUDENT_NOT_FOUND.getErrorMessage());
+        }
     }
 
-    @Override
-    public Students getStudentById(Integer id) {
-        Students students = studentsRepository.findById(id).orElseThrow(
-                () -> new CustomException( ErrorCode.STUDENT_NOT_FOUND.getErrorCode(), ErrorCode.STUDENT_NOT_FOUND.getErrorMessage()));
-        return students;
-    }
-
-    @Override
-    public List<Students> getAllStudents() {
-        return studentsRepository.findAll();
-    }
 }
 

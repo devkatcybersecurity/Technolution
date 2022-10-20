@@ -34,24 +34,36 @@ public class StudentsController {
         try {
             return ResponseEntity.ok(studentsService.getStudentById(id));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
         }
     }
 
     @PostMapping("/add")
     public ResponseEntity<?> addStudent(@RequestBody Students student) {
-        return ResponseEntity.status(201).body(studentsService.addStudent(student));
+        try {
+            return ResponseEntity.status(201).body(studentsService.addStudent(student));
+        } catch (CustomException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+        }
     }
 
     @PutMapping("/update/{studentId}")
     public ResponseEntity<?> updateStudent(@PathVariable Integer studentId, @RequestBody Students student) {
-        return ResponseEntity.status(204).body(studentsService.updateStudent(studentId, student));
+        try{
+            return ResponseEntity.status(204).body(studentsService.updateStudent(studentId, student));
+        } catch (CustomException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+        }
     }
 
     @DeleteMapping("/delete/{studentId}")
     public ResponseEntity<?> deleteStudent(@PathVariable Integer studentId) {
-        studentsService.deleteStudent(studentId);
-        return ResponseEntity.status(204).build();
+        try {
+            studentsService.deleteStudent(studentId);
+            return ResponseEntity.status(204).build();
+        } catch (CustomException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+        }
     }
 
 

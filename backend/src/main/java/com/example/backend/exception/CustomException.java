@@ -16,16 +16,16 @@ public class CustomException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer errorCode;
+    private Integer ApiError;
     private String errorMessage;
 
     public CustomException(){
 
     }
 
-    public CustomException( Integer errorCode, String errorMessage) {
+    public CustomException( Integer ApiError, String errorMessage) {
         super();
-        this.errorCode = errorCode;
+        this.ApiError = ApiError;
         this.errorMessage = errorMessage;
     }
 }
