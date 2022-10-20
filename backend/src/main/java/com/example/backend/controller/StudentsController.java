@@ -1,10 +1,16 @@
 package com.example.backend.controller;
 
 import com.example.backend.dao.Students;
+import com.example.backend.exception.CustomException;
+import com.example.backend.exception.ErrorResponse;
 import com.example.backend.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/students")
@@ -18,30 +24,34 @@ public class StudentsController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllStudents() {
+    public ResponseEntity<List<Students>> getAllStudents() {
+
         return ResponseEntity.ok(studentsService.getAllStudents());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Students> getStudentById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(studentsService.getStudentById(id));
+    public ResponseEntity<?> getStudentById(@PathVariable("id") Integer id) {
+        try {
+            return ResponseEntity.ok(studentsService.getStudentById(id));
+        } catch (CustomException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
+        }
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Students> addStudent(@RequestBody Students student) {
-        return ResponseEntity.ok(studentsService.addStudent(student));
+    public ResponseEntity<?> addStudent(@RequestBody Students student) {
+        return ResponseEntity.status(201).body(studentsService.addStudent(student));
     }
 
     @PutMapping("/update/{studentId}")
-    public ResponseEntity<Students> updateStudent(@PathVariable Integer studentId, @RequestBody Students student) {
-
-        return ResponseEntity.ok(studentsService.updateStudent(studentId, student));
+    public ResponseEntity<?> updateStudent(@PathVariable Integer studentId, @RequestBody Students student) {
+        return ResponseEntity.status(204).body(studentsService.updateStudent(studentId, student));
     }
 
     @DeleteMapping("/delete/{studentId}")
     public ResponseEntity<?> deleteStudent(@PathVariable Integer studentId) {
         studentsService.deleteStudent(studentId);
-        return (ResponseEntity<?>) ResponseEntity.ok();
+        return ResponseEntity.status(204).build();
     }
 
 
