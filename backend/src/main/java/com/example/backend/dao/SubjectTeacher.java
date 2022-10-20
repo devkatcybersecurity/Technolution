@@ -1,11 +1,18 @@
 package com.example.backend.dao;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "SUBJECT_TEACHER")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SubjectTeacher {
 
         @Id

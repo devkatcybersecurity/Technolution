@@ -17,11 +17,11 @@ import java.util.Collections;
 public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
-        return new ApiInfo("MyApp Rest APIs",
+        return new ApiInfo("My ClassRoom Rest APIS",
                 "APIs for MyApp.",
                 "1.0",
                 "Terms of service",
-                new Contact("test", "www.org.com", "test@emaildomain.com"),
+                new Contact("", "www.org.com", "test@emaildomain.com"),
                 "License of API",
                 "API license URL",
                 Collections.emptyList());

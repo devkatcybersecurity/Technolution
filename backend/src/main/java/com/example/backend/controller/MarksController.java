@@ -37,7 +37,7 @@ public class MarksController {
         }
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<?> addMarks(@RequestBody Marks marks) {
         try {
             return ResponseEntity.status(201).body(marksService.addMarks(marks.getStudentId(), marks.getSubjectId(), marks.getMark()));
@@ -46,7 +46,7 @@ public class MarksController {
         }
     }
 
-    @PutMapping("/update/{markId}/{studentId}/{subjectId}/{mark}")
+    @PutMapping("/{markId}/{studentId}/{subjectId}/{mark}")
     public ResponseEntity<?> updateMarks(@PathVariable Integer markId, @PathVariable Integer studentId, @PathVariable Integer subjectId, @PathVariable Integer mark) {
         try{
             return ResponseEntity.status(204).body(marksService.updateMarks(markId, studentId, subjectId, mark));
@@ -55,7 +55,7 @@ public class MarksController {
         }
     }
 
-    @DeleteMapping("/delete/{markId}")
+    @DeleteMapping("/{markId}")
     public ResponseEntity<?> deleteMarks(@PathVariable Integer markId) {
         try {
             marksService.deleteMarks(markId);

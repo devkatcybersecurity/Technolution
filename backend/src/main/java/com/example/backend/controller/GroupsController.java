@@ -36,7 +36,7 @@ public class GroupsController {
         }
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<?> addGroup(@RequestBody Groups group) {
         try {
             return ResponseEntity.status(201).body(groupsService.addGroup(group));
@@ -45,7 +45,7 @@ public class GroupsController {
         }
     }
 
-    @PutMapping("/update/{groupId}")
+    @PutMapping("/{groupId}")
     public ResponseEntity<?> updateGroup(@PathVariable Integer groupId, @RequestBody Groups group) {
         try{
             return ResponseEntity.status(204).body(groupsService.updateGroup(groupId, group.getName()));
@@ -54,7 +54,7 @@ public class GroupsController {
         }
     }
 
-    @DeleteMapping("/delete/{groupId}")
+    @DeleteMapping("/{groupId}")
     public ResponseEntity<?> deleteGroup(@PathVariable Integer groupId) {
         try {
             groupsService.deleteGroup(groupId);

@@ -33,12 +33,10 @@ public class GroupsServiceImpl implements GroupsService {
     }
 
     @Override
-    public Groups addGroup(Groups group) {
-        try{
-            return groupsRepository.save(group);
-        } catch (Exception e) {
-            throw new CustomException(ApiError.GROUP_NOT_FOUND.getApiError(), ApiError.GROUP_NOT_FOUND.getErrorMessage());
-        }    
+    public Groups addGroup(Groups groups) {
+
+            return groupsRepository.save(Groups.builder().name(groups.getName()).build());
+
     }
     
 
