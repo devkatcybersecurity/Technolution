@@ -1,24 +1,32 @@
 package com.example.backend.service.impl;
 
+import com.example.backend.dao.Groups;
+import com.example.backend.dao.Students;
+import com.example.backend.dao.SubjectTeacher;
 import com.example.backend.dao.Subjects;
 import com.example.backend.exception.ApiError;
 import com.example.backend.exception.CustomException;
+import com.example.backend.repository.StudentsRepository;
 import com.example.backend.repository.SubjectsRepository;
 import com.example.backend.service.SubjectsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SubjectsServiceImpl implements SubjectsService {
 
     private final SubjectsRepository subjectsRepository;
+    private final StudentsRepository studentsRepository;
 
 
     @Autowired
-    public SubjectsServiceImpl(SubjectsRepository subjectsRepository) {
+    public SubjectsServiceImpl(SubjectsRepository subjectsRepository,
+                               StudentsRepository studentsRepository) {
         this.subjectsRepository = subjectsRepository;
+        this.studentsRepository = studentsRepository;
     }
 
     @Override
@@ -41,6 +49,17 @@ public class SubjectsServiceImpl implements SubjectsService {
 
     }
 
+    @Override
+    public List<SubjectTeacher> getMarksForParticularSubject(int subjectId) {
+        Optional<Students> students= studentsRepository.findById(subjectId);
+        if(students.isPresent()) {
+            Groups groups= students.get().getGroups();
+            List<SubjectTeacher> subjectTeachers = groups.getSubjectTeachersList();
+            return subjectTeachers;
+        }
+        return null;
+
+    }
     @Override
     public Subjects updateSubject(Integer subjectId, Subjects subject) {
         subjectsRepository.findById(subjectId).orElseThrow(

@@ -10,6 +10,9 @@ public interface MarksService {
     Marks addMarks(Integer studentId, Integer subjectId, Integer mark);
     Marks updateMarks(Integer markId, Integer studentId, Integer subjectId, Integer mark);
     void deleteMarks(Integer markId);
+
+    long getMarks(int studentsId);
+
     Marks getMarksById(Integer markId);
 
 }

@@ -1,5 +1,6 @@
 package com.example.backend.dao;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,10 +9,10 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
-@Table(name = "MARKS")
+@Table(name = "marks")
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,24 +21,27 @@ public class Marks {
 
     @Id
     @GeneratedValue
-    @Column(name="MARK_ID", nullable = false)
+    @Column(name="mark_id", nullable = false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer markId;
 
-    @Column(name="STUDENT_ID")
-    private Integer studentId;
+    @Column(name="date_time")
+    private Date dateTime;
 
-    @Column(name="SUBJECT_ID")
-    private Integer subjectId;
+    @Column(name="marks")
+    private Integer marks;
 
-    @Column(name="DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Date date;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="student_id")
+    @JsonBackReference
+    private Students students;
 
-    @Column(name="MARK")
-    private Integer mark;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="subject_id")
+    @JsonBackReference
+    private Subjects subjects;
 
-//    @ManyToOne
-//    private Subjects subjects;
+
+
+
 }

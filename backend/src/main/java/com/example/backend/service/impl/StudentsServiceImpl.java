@@ -43,15 +43,17 @@ public class StudentsServiceImpl implements StudentsService {
     public Students updateStudent(Integer studentId, Students student) {
 
 
-        Students oldStudentData = studentsRepository.findById(studentId).orElseThrow(
-                () -> new CustomException(ApiError.STUDENT_NOT_FOUND.getApiError(), ApiError.STUDENT_NOT_FOUND.getErrorMessage()));
-            Students newStudentData = Students.builder()
-                    .studentId(studentId)
-                    .firstName(student.getFirstName() != null ? student.getFirstName() : oldStudentData.getFirstName())
-                    .lastName(student.getLastName() != null ? student.getLastName() : oldStudentData.getLastName())
-                    .groupId(student.getGroupId() != null ? student.getGroupId() : oldStudentData.getGroupId())
-                    .build();
-            return studentsRepository.save(newStudentData);
+//        Students oldStudentData = studentsRepository.findById(studentId).orElseThrow(
+//                () -> new CustomException(ApiError.STUDENT_NOT_FOUND.getApiError(), ApiError.STUDENT_NOT_FOUND.getErrorMessage()));
+//            Students newStudentData = Students.builder()
+//                    .studentId(studentId)
+//                    .firstName(student.getFirstName() != null ? student.getFirstName() : oldStudentData.getFirstName())
+//                    .lastName(student.getLastName() != null ? student.getLastName() : oldStudentData.getLastName())
+//                    .groupId(student.getGroupId() != null ? student.getGroupId() : oldStudentData.getGroupId())
+//                    .build();
+//            return studentsRepository.save(newStudentData);
+
+        return null;
 
     }
 

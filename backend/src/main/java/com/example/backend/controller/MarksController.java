@@ -39,11 +39,12 @@ public class MarksController {
 
     @PostMapping
     public ResponseEntity<?> addMarks(@RequestBody Marks marks) {
-        try {
-            return ResponseEntity.status(201).body(marksService.addMarks(marks.getStudentId(), marks.getSubjectId(), marks.getMark()));
-        } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
-        }
+//        try {
+//            return ResponseEntity.status(201).body(marksService.addMarks(marks.getStudents().getStudentId(), marks.get, marks.getMark()));
+//        } catch (CustomException e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+//        }
+        return null;
     }
 
     @PutMapping("/{markId}/{studentId}/{subjectId}/{mark}")

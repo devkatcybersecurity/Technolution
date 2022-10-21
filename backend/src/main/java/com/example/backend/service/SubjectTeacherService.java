@@ -5,6 +5,8 @@ import com.example.backend.dao.SubjectTeacher;
 import java.util.List;
 
 public interface SubjectTeacherService {
+    long noOfStudentsFromTeacherId(int teacherId);
+
     List<SubjectTeacher> findAll();
 
     SubjectTeacher getSubjectTeacherById(Integer subjectTeacherId);
