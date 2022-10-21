@@ -1,11 +1,7 @@
 package com.example.backend.dao;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 
 import javax.persistence.*;
@@ -13,10 +9,12 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "marks")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "markId")
 public class Marks {
 
     @Id
@@ -32,13 +30,13 @@ public class Marks {
     private Integer marks;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="student_id")
-    @JsonBackReference
+    @JoinColumn(name = "student_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Students students;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="subject_id")
-    @JsonBackReference
+    @JsonIdentityReference(alwaysAsId = true)
     private Subjects subjects;
 
 

@@ -1,13 +1,7 @@
 package com.example.backend.dao;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -16,10 +10,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "groups")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "groupId")
 public class Groups {
 
     @Id
@@ -33,12 +29,12 @@ public class Groups {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "groups", cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
-    @JsonManagedReference
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Students> studentsList;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "groups", cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
-    @JsonManagedReference
+    @JsonIdentityReference(alwaysAsId = true)
     private List<SubjectTeacher> subjectTeachersList;
 
 

@@ -10,10 +10,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "students")
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "studentId")
 public class Students {
 
     @Id
@@ -30,12 +32,12 @@ public class Students {
 
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "students", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Marks> marksList;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL,optional=false)
     @JoinColumn(name = "group_id", referencedColumnName="group_id")
-    @JsonBackReference
+    @JsonIdentityReference(alwaysAsId = true)
     private Groups groups;
 
 

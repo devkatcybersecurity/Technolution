@@ -1,23 +1,19 @@
 package com.example.backend.dao;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "subjects")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "subjectId")
 public class Subjects {
 
     @Id
@@ -29,11 +25,11 @@ public class Subjects {
     private String title;
 
     @OneToMany( mappedBy = "subjects", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Marks> marksList;
 
     @OneToMany( mappedBy = "subjects", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonIdentityReference(alwaysAsId = true)
     private List<SubjectTeacher> subjectTeachers;
 
 }

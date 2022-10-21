@@ -4,10 +4,7 @@ import com.example.backend.dao.Marks;
 import com.example.backend.dao.SubjectTeacher;
 import com.example.backend.models.MarksBySubjectModel;
 import com.example.backend.models.MarksListModel;
-import com.example.backend.service.MarksService;
-import com.example.backend.service.SchoolService;
-import com.example.backend.service.SubjectTeacherService;
-import com.example.backend.service.SubjectsService;
+import com.example.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +18,17 @@ public class SchoolServiceImpl implements SchoolService {
     private SubjectsService subjectsService;
     private SubjectTeacherService subjectTeacherService;
 
+    private StudentsService studentsService;
+
     @Autowired
     public SchoolServiceImpl(MarksService marksService,
                              SubjectsService subjectsService,
-                             SubjectTeacherService subjectTeacherService) {
+                             SubjectTeacherService subjectTeacherService,
+                             StudentsService studentsService) {
         this.marksService = marksService;
         this.subjectsService = subjectsService;
         this.subjectTeacherService = subjectTeacherService;
+        this.studentsService = studentsService;
     }
 
     @Override
@@ -44,16 +45,26 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public List<MarksBySubjectModel> getListOfMarksForStudentsId(int studentsId) {
         // TODO Auto-generated method stub
-//        List<MarksBySubjectModel> marksBySubjectModelList = new ArrayList<>();
-//        List<MarksListModel> marksList = marksService.getMarksList(studentsId);
-//        for (MarksListModel marksListModel : marksList) {
-//            MarksBySubjectModel marksBySubjectModel = new MarksBySubjectModel();
-//            marksBySubjectModel.setSubjectName(subjectsService.getSubjectName(marksListModel.getSubjectId()));
-//            marksBySubjectModel.setMarks(marksListModel.getMarks());
-//            marksBySubjectModelList.add(marksBySubjectModel);
-//        }
-//        return marksBySubjectModelList;
-        return null;
+        List<Marks> marksList = studentsService.getStudentById(studentsId).getMarksList();
+        List<MarksBySubjectModel> marksBySubjectModels = new ArrayList<>();
+
+        if(marksList != null) {
+            for(Marks marks : marksList) {
+                MarksBySubjectModel marksBySubjectModel = new MarksBySubjectModel();
+                marksBySubjectModel.setSubjectName(marks.getSubjects().getTitle());
+
+                List<MarksListModel> marksListModels = new ArrayList<>();
+                    MarksListModel marksListModel = new MarksListModel();
+                    marksListModel.setMarks(marks.getMarks());
+                    marksListModel.setDate(marks.getDateTime());
+                    marksListModels.add(marksListModel);
+                marksBySubjectModel.setMarksListModels(marksListModels);
+                marksBySubjectModels.add(marksBySubjectModel);
+
+            }
+        }
+
+        return marksBySubjectModels;
     }
 
 }
