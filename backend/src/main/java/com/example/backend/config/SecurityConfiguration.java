@@ -43,10 +43,18 @@ public class SecurityConfiguration     {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("**")
+                .antMatchers("/h2-console/**").permitAll().and()
+                .csrf()
+                .disable()
+                .headers()
+                .frameOptions()
+                .disable()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/**")
                 .hasRole("USER")
                 .anyRequest()
-                .permitAll();
+                .authenticated();
         http.oauth2Login()
                 .and()
                 .logout()
