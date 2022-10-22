@@ -60,10 +60,8 @@ public class SchoolServiceImpl implements SchoolService {
                     marksListModels.add(marksListModel);
                 marksBySubjectModel.setMarksListModels(marksListModels);
                 marksBySubjectModels.add(marksBySubjectModel);
-
             }
         }
-
         return marksBySubjectModels;
     }
 
