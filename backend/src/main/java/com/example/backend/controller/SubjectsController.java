@@ -32,7 +32,7 @@ public class SubjectsController {
         try {
             return ResponseEntity.ok(subjectsService.getSubjectById(id));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CustomException(e.getMessage(), HttpStatus.NOT_FOUND));
         }
     }
 
@@ -41,7 +41,7 @@ public class SubjectsController {
         try {
             return ResponseEntity.status(201).body(subjectsService.addSubject(subject.getTitle()));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 
@@ -50,7 +50,7 @@ public class SubjectsController {
         try {
             return ResponseEntity.status(204).body(subjectsService.updateSubject(subjectId, subject));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 
@@ -60,7 +60,7 @@ public class SubjectsController {
             subjectsService.deleteSubject(subjectId);
             return ResponseEntity.status(204).build();
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 

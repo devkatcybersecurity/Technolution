@@ -2,7 +2,6 @@ package com.example.backend.dao;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;

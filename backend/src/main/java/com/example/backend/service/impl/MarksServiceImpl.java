@@ -8,6 +8,7 @@ import com.example.backend.repository.MarksRepository;
 import com.example.backend.repository.StudentsRepository;
 import com.example.backend.service.MarksService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class MarksServiceImpl implements MarksService {
     @Override
     public Marks getMarksById(Integer markId) {
         Marks marks = marksRepository.findById(markId).orElseThrow(
-                () -> new CustomException(ApiError.MARK_NOT_FOUND.getApiError(), ApiError.MARK_NOT_FOUND.getErrorMessage()));
+                () -> new CustomException("Mark with id " + markId + " not found", HttpStatus.NOT_FOUND));
         return marks;
     }
 
@@ -87,7 +88,7 @@ public class MarksServiceImpl implements MarksService {
         try{
             marksRepository.deleteById(markId);}
         catch (Exception e) {
-            throw new CustomException(ApiError.MARK_NOT_FOUND.getApiError(), ApiError.MARK_NOT_FOUND.getErrorMessage());
+            throw new CustomException("Mark with id " + markId + " not found", HttpStatus.NOT_FOUND);
         }
     }
 

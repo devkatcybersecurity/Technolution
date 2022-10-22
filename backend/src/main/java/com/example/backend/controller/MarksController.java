@@ -33,7 +33,7 @@ public class MarksController {
         try {
             return ResponseEntity.ok(marksService.getMarksById(id));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 
@@ -42,7 +42,7 @@ public class MarksController {
 //        try {
 //            return ResponseEntity.status(201).body(marksService.addMarks(marks.getStudents().getStudentId(), marks.get, marks.getMark()));
 //        } catch (CustomException e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
 //        }
         return null;
     }
@@ -52,7 +52,7 @@ public class MarksController {
         try{
             return ResponseEntity.status(204).body(marksService.updateMarks(markId, studentId, subjectId, mark));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 
@@ -62,7 +62,7 @@ public class MarksController {
             marksService.deleteMarks(markId);
             return ResponseEntity.status(204).build();
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 

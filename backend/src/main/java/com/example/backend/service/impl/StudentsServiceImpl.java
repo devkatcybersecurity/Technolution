@@ -6,6 +6,7 @@ import com.example.backend.exception.ApiError;
 import com.example.backend.repository.StudentsRepository;
 import com.example.backend.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class StudentsServiceImpl implements StudentsService {
     @Override
     public Students getStudentById(Integer id) {
         Students students = studentsRepository.findById(id).orElseThrow(
-                () -> new CustomException( ApiError.STUDENT_NOT_FOUND.getApiError(), ApiError.STUDENT_NOT_FOUND.getErrorMessage()));
+                () -> new CustomException("Student with id " + id + " not found", HttpStatus.NOT_FOUND));
         return students;
     }
 
@@ -64,7 +65,7 @@ public class StudentsServiceImpl implements StudentsService {
             studentsRepository.deleteById(id);
         }
         catch (Exception e) {
-            throw new CustomException(ApiError.STUDENT_NOT_FOUND.getApiError(), ApiError.STUDENT_NOT_FOUND.getErrorMessage());
+            throw new CustomException("Student with id " + id + " not found", HttpStatus.NOT_FOUND);
         }
     }
 

@@ -8,25 +8,28 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Component
-@Getter
-@Setter
-@ToString
+import org.springframework.http.HttpStatus;
+
 public class CustomException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer ApiError;
-    private String errorMessage;
+    private final String message;
+    private final HttpStatus httpStatus;
 
-    public CustomException(){
-
+    public CustomException(String message, HttpStatus httpStatus) {
+        this.message = message;
+        this.httpStatus = httpStatus;
     }
 
-    public CustomException( Integer ApiError, String errorMessage) {
-        super();
-        this.ApiError = ApiError;
-        this.errorMessage = errorMessage;
+    @Override
+    public String getMessage() {
+        return message;
     }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
 }
 

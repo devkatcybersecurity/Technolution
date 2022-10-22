@@ -34,7 +34,7 @@ public class StudentsController {
         try {
             return ResponseEntity.ok(studentsService.getStudentById(id));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 
@@ -43,7 +43,7 @@ public class StudentsController {
         try {
             return ResponseEntity.status(201).body(studentsService.addStudent(student));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 
@@ -52,7 +52,7 @@ public class StudentsController {
         try{
             return ResponseEntity.status(204).body(studentsService.updateStudent(studentId, student));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 
@@ -62,7 +62,7 @@ public class StudentsController {
             studentsService.deleteStudent(studentId);
             return ResponseEntity.status(204).build();
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getApiError(), e.getErrorMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CustomException(e.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 

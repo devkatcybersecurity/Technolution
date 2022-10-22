@@ -32,7 +32,7 @@ public class SubjectTeacherController {
         try {
             return ResponseEntity.ok(subjectTeacherService.getSubjectTeacherById(id));
         } catch (CustomException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ErrorResponse( e.getApiError(), e.getErrorMessage() ) );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new CustomException(e.getMessage(), HttpStatus.NOT_FOUND));
         }
     }
 

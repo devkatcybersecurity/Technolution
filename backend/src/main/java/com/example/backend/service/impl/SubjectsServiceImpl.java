@@ -10,6 +10,7 @@ import com.example.backend.repository.StudentsRepository;
 import com.example.backend.repository.SubjectsRepository;
 import com.example.backend.service.SubjectsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class SubjectsServiceImpl implements SubjectsService {
     @Override
     public Subjects getSubjectById(Integer subjectId) {
         return subjectsRepository.findById(subjectId).orElseThrow(
-                () -> new CustomException(ApiError.SUBJECT_NOT_FOUND.getApiError(), ApiError.SUBJECT_NOT_FOUND.getErrorMessage()));
+                () -> new CustomException("Subject with id " + subjectId + " not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -63,7 +64,7 @@ public class SubjectsServiceImpl implements SubjectsService {
     @Override
     public Subjects updateSubject(Integer subjectId, Subjects subject) {
         subjectsRepository.findById(subjectId).orElseThrow(
-                () -> new CustomException(ApiError.SUBJECT_NOT_FOUND.getApiError(), ApiError.SUBJECT_NOT_FOUND.getErrorMessage()));
+                () -> new CustomException("Subject with id " + subjectId + " not found", HttpStatus.NOT_FOUND));
         Subjects newSubjectData = Subjects.builder()
                 .subjectId(subjectId)
                 .title(subject.getTitle())
@@ -74,7 +75,7 @@ public class SubjectsServiceImpl implements SubjectsService {
     @Override
     public void deleteSubject(Integer subjectId) {
         subjectsRepository.findById(subjectId).orElseThrow(
-                () -> new CustomException(ApiError.SUBJECT_NOT_FOUND.getApiError(), ApiError.SUBJECT_NOT_FOUND.getErrorMessage()));
+                () -> new CustomException("Subject with id " + subjectId + " not found", HttpStatus.NOT_FOUND));
         subjectsRepository.deleteById(subjectId);
     }
 }

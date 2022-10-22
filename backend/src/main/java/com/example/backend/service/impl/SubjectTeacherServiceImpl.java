@@ -9,6 +9,7 @@ import com.example.backend.repository.GroupsRepository;
 import com.example.backend.repository.SubjectTeacherRepository;
 import com.example.backend.service.SubjectTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class SubjectTeacherServiceImpl implements SubjectTeacherService {
     @Override
     public SubjectTeacher getSubjectTeacherById(Integer subjectTeacherId) {
         return subjectTeacherRepository.findById(subjectTeacherId).orElseThrow(
-                () -> new CustomException(ApiError.SUBJECT_TEACHER_NOT_FOUND.getApiError(), ApiError.SUBJECT_TEACHER_NOT_FOUND.getErrorMessage()));
+                () -> new CustomException("SubjectTeacher with id " + subjectTeacherId + " not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -73,7 +74,7 @@ public class SubjectTeacherServiceImpl implements SubjectTeacherService {
         try {
             subjectTeacherRepository.deleteById(subjectTeacherId);
         } catch (Exception e) {
-            throw new CustomException(ApiError.SUBJECT_TEACHER_NOT_FOUND.getApiError(), ApiError.SUBJECT_TEACHER_NOT_FOUND.getErrorMessage());
+            throw new CustomException("SubjectTeacher with id " + subjectTeacherId + " not found", HttpStatus.NOT_FOUND);
         }
     }
 }
