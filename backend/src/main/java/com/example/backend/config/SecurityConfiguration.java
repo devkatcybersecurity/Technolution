@@ -1,20 +1,20 @@
 package com.example.backend.config;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.session.SessionRegistryImpl;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration     {
+public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 
 
 //    @Bean
@@ -25,42 +25,38 @@ public class SecurityConfiguration     {
 //        httpSecurity.headers().frameOptions().disable();
 //        return httpSecurity.build();
 //    }
-//
 
-
-    private final KeycloakLogoutHandler keycloakLogoutHandler;
-
-
-    public SecurityConfiguration(KeycloakLogoutHandler keycloakLogoutHandler) {
-        this.keycloakLogoutHandler = keycloakLogoutHandler;
-    }
-
-    @Bean
-    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-        return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll().and()
-                .csrf()
-                .disable()
-                .headers()
-                .frameOptions()
-                .disable()
-                .and()
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http
                 .authorizeRequests()
-                .antMatchers("/**")
-                .hasRole("USER")
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/swagger-ui/**").hasRole("ADMIN")
                 .anyRequest()
-                .authenticated();
-        http.oauth2Login()
+                .authenticated()
                 .and()
-                .logout()
-                .addLogoutHandler(keycloakLogoutHandler)
-                .logoutSuccessUrl("/");
-        return http.build();
+                .httpBasic();
+                http.csrf().disable();
+        http.headers().frameOptions().disable();
+
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("user1")
+                .password(this.passwordEncoder().encode("user1"))
+                .roles("USER");
+
+        auth.inMemoryAuthentication()
+                .withUser("user2")
+                .password(this.passwordEncoder().encode("user2"))
+                .roles("ADMIN");
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
     }
 
 
