@@ -1,0 +1,36 @@
+.signup-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: steelblue;
+}
+
+.mat-card-header {
+  background-color: cadetblue;
+  border-radius: 5px 5px 5px 5px;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-card-title{
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+.signup-form {
+  flex-direction: column;
+  justify-content: center;
+}
+.form-group > input{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 1px solid #ccc;
+}
+
+
