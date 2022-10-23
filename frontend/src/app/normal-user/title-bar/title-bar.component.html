@@ -1,0 +1,20 @@
+<!-- responsive material design navigation bar consisting of logo, customer form, table, user profile and logout -->
+<mat-toolbar color="primary" >
+
+  <span class="example-spacer"> Banking App</span>
+  <!-- if clicked then route to  new transaction form -->
+
+  <!-- toggle mechanism in toolbar buttons to show different components when clicked -->
+
+  <button mat-button (click)="toggleToolbarBankingFeature('new-transaction')" value="new-transaction">New Transaction</button>
+  <button mat-button (click)="toggleToolbarBankingFeature('history')" value="history">History</button>
+  <button mat-icon-button (click)="toggleToolbarBankingFeature('user-profile')" value="user-profile"><mat-icon>account_circle</mat-icon></button>
+  <!-- material logout icon with white color-->
+  <button mat-icon-button  routerLink="/logout" ><mat-icon>exit_to_app</mat-icon></button>
+
+</mat-toolbar>
+<app-history *ngIf="showThisToolbarFeature == 'history' "></app-history>
+<app-new-transaction *ngIf="showThisToolbarFeature == 'new-transaction'"></app-new-transaction>
+<app-user-profile *ngIf="showThisToolbarFeature == 'user-profile'"></app-user-profile>
+
+
