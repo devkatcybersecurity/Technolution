@@ -41,6 +41,11 @@
       </mat-card-content>
       <button mat-stroked-button color="accent" class="btn-block" (click)="addNewUser(signupForm.value)"> Sign Up</button>
     </form>
+    <!-- show error message if username already exists-->
+    <div *ngIf="usernameAlreadyExist" class="error-message">
+      <mat-error>Username already exists</mat-error>
+    </div>
+
   </mat-card>
 </div>
 

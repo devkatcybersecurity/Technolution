@@ -33,7 +33,7 @@ server.post('/signup', (req, res) => {
     });
     db.users.push(req.body);
     fs.writeFileSync('./server/db.json', JSON.stringify(db));
-
+    res.status(201).send(req.body);
     // db.users.push(req.body);
   } else {
     res.status(500).send('User already exists');

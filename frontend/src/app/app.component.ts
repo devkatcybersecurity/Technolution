@@ -6,4 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  isLoggedin = false;
+  userDetails = {};
+
+  onLogin($event) {
+    console.log("inside on login");
+    this.isLoggedin = true;
+    this.userDetails = $event.value;
+  }
+
+  onLogout() {
+    this.isLoggedin = false;
+    this.userDetails = {};
+  }
 }
