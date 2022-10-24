@@ -15,5 +15,10 @@ export class AuthService {
     return this.http.post('http://localhost:3000/signup', credentials);
   }
 
+  login(credentials: {'username': string, password: string}): Observable<Object> {
+    console.log('inside login');
+    return this.http.post('http://localhost:3000/login', credentials);
+  }
+
 
 }

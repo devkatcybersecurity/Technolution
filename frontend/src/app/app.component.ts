@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   isLoggedin = false;
   userDetails = {};
+  showThisToolbarFeature: string = 'login';
 
   onLogin($event) {
     console.log("inside on login");
@@ -18,5 +19,9 @@ export class AppComponent {
   onLogout() {
     this.isLoggedin = false;
     this.userDetails = {};
+  }
+
+  toggleToolbarBankingFeature($event: string) {
+    this.showThisToolbarFeature = $event;
   }
 }

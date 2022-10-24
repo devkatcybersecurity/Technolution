@@ -1,11 +1,17 @@
-<mat-toolbar color="primary" class="app-header">
-  <div><span>Banking App</span></div>
-  <span class="nav-tool-items">
-    <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
-    <a mat-button mat-raised-button routerLink="signup" routerLinkActive="active">Register</a>
-    <a mat-button routerLink="login" (click)="onLogout()" routerLinkActive="active">Log out</a>
+<mat-toolbar color="primary" class="app-header"  >
+  <div class="app-header-logo"><span>Banking App</span></div>
+  <div class="app-header-items">
+  <span >
+    <button mat-button (click)="toggleToolbarBankingFeature('login')" value="login"  *ngIf="!isLoggedin">Log in</button>
+    <button mat-button (click)="toggleToolbarBankingFeature('signup')" value="signup" *ngIf="!isLoggedin">Sign Up</button>
+    <button mat-button (click)="onLogout()" value="logout" >Logout</button>
   </span>
+  </div>
 </mat-toolbar>
+
+<!-- show login component if clicked on login button -->
+
+
 <app-home *ngIf="isLoggedin" ></app-home>
-<app-signup *ngIf="!isLoggedin" (onSignUpOrLogin)="onLogin($event)"></app-signup>
-<app-login *ngIf="!isLoggedin" (onSignUpOrLogin)="onLogin($event)"></app-login>
+<app-login *ngIf="!isLoggedin && showThisToolbarFeature == 'login'" (onSignUpOrLogin)="onLogin($event)"></app-login>
+<app-signup *ngIf="!isLoggedin && showThisToolbarFeature == 'signup'"  (onSignUpOrLogin)="onLogin($event)"></app-signup>

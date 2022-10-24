@@ -1,0 +1,15 @@
+.app-header {
+  display: flex;
+  ;
+}
+
+.app-header-logo {
+  flex : 2;
+
+}
+
+.app-header-items {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}

@@ -16,7 +16,7 @@ server.post('/login', (req, res, next) => {
   )[0];
 
   if (user) {
-    res.send({ ...formatUser(user), token: checkIfAdmin(user) });
+    res.status(200).send({ ...formatUser(user), token: checkIfAdmin(user) });
   } else {
     res.status(401).send('Incorrect username or password');
   }
@@ -27,14 +27,12 @@ server.post('/signup', (req, res) => {
   const user = users.filter(u => u.username === req.body.username)[0];
   console.log('inside server: signup ', req.body);
   if (user === undefined || user === null) {
-    res.send({
+    db.users.push(req.body);
+    fs.writeFileSync('./server/db.json', JSON.stringify(db));
+    res.status(201).send({
       ...formatUser(req.body),
       token: checkIfAdmin(req.body)
     });
-    db.users.push(req.body);
-    fs.writeFileSync('./server/db.json', JSON.stringify(db));
-    res.status(201).send(req.body);
-    // db.users.push(req.body);
   } else {
     res.status(500).send('User already exists');
   }
