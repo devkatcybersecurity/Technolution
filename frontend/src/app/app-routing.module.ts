@@ -1,19 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
 import {SignupComponent} from "./signup/signup.component";
+import {HistoryComponent} from "./history/history.component";
+import {NewTransactionComponent} from "./new-transaction/new-transaction.component";
+import {UserProfileComponent} from "./user-profile/user-profile.component";
 
 // This is where we will configure our routes
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'history', component: HistoryComponent },
   {
     path: 'login', component: LoginComponent,
   },
   {
     path:'signup',
     component: SignupComponent
+  },
+  {
+    path: 'new-transaction', component: NewTransactionComponent
+  },
+  {
+    path: 'profile', component: UserProfileComponent
   }
+
 ];
 
 @NgModule({

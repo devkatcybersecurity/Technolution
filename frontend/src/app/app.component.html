@@ -1,17 +1,27 @@
+<div class="app-container">
 <mat-toolbar color="primary" class="app-header"  >
   <div class="app-header-logo"><mat-icon></mat-icon><span>Banking App</span></div>
   <div class="app-header-items">
   <span >
-    <button mat-button (click)="toggleToolbarBankingFeature('login')" value="login"  *ngIf="!isLoggedin">Log in</button>
+    <button mat-button (click)="toggleToolbarBankingFeature('login')" value="login"  *ngIf="!isLoggedin" >Log in</button>
     <button mat-button (click)="toggleToolbarBankingFeature('signup')" value="signup" *ngIf="!isLoggedin">Sign Up</button>
+    <button mat-button (click)="toggleToolbarBankingFeature('history')" value="history" *ngIf="isLoggedin"> History/Dashboard </button>
+    <button mat-button (click)="toggleToolbarBankingFeature('new-transaction')" value="new-transaction" *ngIf="isLoggedin">New Transaction </button>
+    <button mat-button (click)="toggleToolbarBankingFeature('profile')" value="user-profile" *ngIf="isLoggedin">User Profile </button>
     <button mat-button (click)="onLogout()" value="logout" *ngIf="isLoggedin" >Logout</button>
   </span>
   </div>
 </mat-toolbar>
 
+
 <!-- show login component if clicked on login button -->
+<router-outlet *ngIf="isLoggedin"></router-outlet>
 
 
-<app-home *ngIf="isLoggedin" ></app-home>
+<!--<app-history *ngIf="isLoggedin && showThisToolbarFeature=='history'" ></app-history>-->
+<!--<app-new-transaction *ngIf="isLoggedin && showThisToolbarFeature=='new-transaction'" ></app-new-transaction>-->
+<!--<app-user-profile *ngIf="isLoggedin && showThisToolbarFeature=='user-profile'" ></app-user-profile>-->
 <app-login *ngIf="!isLoggedin && showThisToolbarFeature == 'login'" (onSignUpOrLogin)="onLogin($event)"></app-login>
 <app-signup *ngIf="!isLoggedin && showThisToolbarFeature == 'signup'"  (onSignUpOrLogin)="onLogin($event)"></app-signup>
+
+

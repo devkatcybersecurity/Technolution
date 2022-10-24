@@ -42,6 +42,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SignupComponent} from "./signup/signup.component";
 import {HttpClientModule} from "@angular/common/http";
+import { NewTransactionComponent } from './new-transaction/new-transaction.component';
+import { HistoryComponent } from './history/history.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 @NgModule({
@@ -50,7 +53,10 @@ import {HttpClientModule} from "@angular/common/http";
     AppComponent,
     HomeComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    NewTransactionComponent,
+    HistoryComponent,
+    UserProfileComponent
   ],
   imports: [
     // contains other modules, whose classes are needed by components of the module they are being imported into

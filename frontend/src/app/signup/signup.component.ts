@@ -3,6 +3,7 @@ import {User} from "../services/auth/user";
 import {AuthService} from "../services/auth/auth.service";
 import {FormBuilder, FormGroup, ɵElement, ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
 import {HttpErrorResponse} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +25,8 @@ export class SignupComponent implements OnInit {
                                     })
 
   constructor(private authService: AuthService,
-              private fb: FormBuilder) {}
+              private fb: FormBuilder,
+              private router: Router) {}
 
 
 
@@ -57,7 +59,8 @@ export class SignupComponent implements OnInit {
     this.authService.signup(this.user)
       .subscribe((response) => {
           console.log('response', response);
-          this.onSignUpOrLogin.emit(response)
+          this.onSignUpOrLogin.emit(response);
+          this.router.navigate(['/history']).then(r => console.log(r));
         },
         (error: HttpErrorResponse) => {
           console.log('error', error);
