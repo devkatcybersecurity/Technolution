@@ -1,1 +1,1 @@
-{"users":[{"username":"dev","password":"d","email":"","firstName":"","lastName":"","role":"user"}]}
+{"users":[{"username":"admin","password":"admin","email":"","firstName":"","lastName":"","role":"admin"},{"username":"dev","password":"dev","email":"dev@gmail.com","firstName":"devendra","lastName":"meena","role":"user"}]}
