@@ -5,12 +5,14 @@ export interface Transaction {
   'number': number,
   'name': string,
   'address': string,
+  'phone' : number,
   'amount': number,
   'currency': string,
-  'beneficiary-bank': string,
-  'beneficiary-account': number,
-  'card-number': number,
-  'card-expiry': string,
-  'card-cvv': string
+  'beneficiaryBank': string,
+  'beneficiaryAccount': number,
+  'cardType': string,
+  'cardNumber': number,
+  'cardExpiry': string,
+  'cardCVV': string
 
 }

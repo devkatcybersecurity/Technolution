@@ -13,4 +13,86 @@
 <!--  </mat-card>-->
 <!--</div>-->
 
-<h1 style="margin-left: 45%">New Transaction Form</h1>
+<div class="form-wrapper">
+  <div class="card mt-3">
+    <form class="card-body"  >
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label> Transaction  </label> &nbsp; &nbsp;
+          <!-- select from two choices from radio buttons of New or Existing -->
+          <input type = "radio" name = "Transaction" value = "New" checked="checked" [(ngModel)]="transactionDetail.transactionType"> New
+          <input type = "radio" name = "Transaction" value = "Existing" [(ngModel)]="transactionDetail.transactionType"> Existing
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+            <label> Reference </label>
+          <input type="text" class="form-control"  name="reference" [(ngModel)]="transactionDetail.reference">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label> Account Number</label>
+          <input type="text" class="form-control"  name="customerNumber" [(ngModel)]="transactionDetail.number">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>  Name</label>
+          <input type="text" class="form-control"  name="customerName" [(ngModel)]="transactionDetail.name">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>  Address  </label>
+          <input type="text" class="form-control"  name="customerAddress" [(ngModel)]="transactionDetail.address">
+        </div>
+      </div>
+     <div class="row">
+       <div class="col-md-6 mb-3">
+         <label> Phone Number </label>
+         <input type="text" class="form-control"  name="customerPhone" [(ngModel)]="transactionDetail.phone">
+       </div>
+       <div class="col-md-6 mb-3">
+         <label> Transfer Amount </label>
+         <input type="text" class="form-control"  name="amount" [(ngModel)]="transactionDetail.amount">
+       </div>
+     </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label> Transfer Currency </label>
+          <input type="text" class="form-control"  name="currency" [(ngModel)]="transactionDetail.currency">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label> Beneficiary Bank </label>
+          <input type="text" class="form-control"  name="beneficiaryBank" [(ngModel)]="transactionDetail.beneficiaryBank">
+        </div>
+      </div>
+      <div class="row">
+        <label> Payment Details </label>
+        <hr />
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label> Card Type  </label>
+            <select class="form-control" name="cardType" [(ngModel)]="transactionDetail.cardType">
+            <option value="Debit">Debit</option>
+            <option value="Credit">Credit</option>
+            </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label> Card Number </label>
+          <input type="text" class="form-control"  name="cardNumber" [(ngModel)]="transactionDetail.cardNumber">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label> Card Expiry </label>
+          <input type="date" class="form-control"  name="cardExpiry" [(ngModel)]="transactionDetail.cardExpiry">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label> Card CVV </label>
+          <input type="text" class="form-control"  name="cardCVV" [(ngModel)]="transactionDetail.cardCVV">
+        </div>
+      </div>
+      <input type="submit" class="btn btn-primary" (click)="onSubmit()">
+    </form>
+  </div>
+</div>

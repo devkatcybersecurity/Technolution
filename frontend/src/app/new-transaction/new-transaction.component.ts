@@ -18,13 +18,15 @@ export class NewTransactionComponent implements OnInit {
     'number': 0,
     'name': '',
     'address': '',
+    'phone': 0,
     'amount': 0,
     'currency': '',
-    'beneficiary-bank': '',
-    'beneficiary-account': 0,
-    'card-number': 0,
-    'card-expiry': '',
-    'card-cvv': ''
+    'beneficiaryBank': '',
+    'beneficiaryAccount': 0,
+    'cardType': 'Debit',
+    'cardNumber': 0,
+    'cardExpiry': '',
+    'cardCVV': ''
   };
 
   transactionForm = this.fb.group({ ...this.transactionDetail});
@@ -36,7 +38,8 @@ export class NewTransactionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(data) {
+  onSubmit() {
+    console.log("data submitted in transaction is : ", this.transactionDetail);
     // this.transactionService.newTransaction(data).subscribe((response) => {
     //     console.log('response', response);
     //     this.router.navigate(['/history']).then(r => console.log(r));
