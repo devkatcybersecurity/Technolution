@@ -10,6 +10,8 @@ export class HistoryComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    console.log("Inside history component Authorization is ", localStorage.getItem('Authorization'));
   }
 
 }

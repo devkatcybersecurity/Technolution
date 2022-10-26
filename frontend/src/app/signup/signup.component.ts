@@ -59,8 +59,9 @@ export class SignupComponent implements OnInit {
     this.authService.signup(this.user)
       .subscribe((response) => {
           console.log('response', response);
+          localStorage.setItem('Authorization',  JSON.stringify(response));
           this.onSignUpOrLogin.emit(response);
-          this.router.navigate(['/history']).then(r => console.log(r));
+
         },
         (error: HttpErrorResponse) => {
           console.log('error', error);

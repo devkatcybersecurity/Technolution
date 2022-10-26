@@ -16,10 +16,18 @@ export class AppComponent {
               ) {
   }
 
+  ngOnInit(): void {
+    this.isLoggedin = localStorage.getItem('Authorization') ? true : false;
+    if(this.isLoggedin) {
+      this.showThisToolbarFeature = 'history';
+      this.router.navigate(['/history']).then(r => console.log(r));
+    }
+  }
 
   onLogin($event) {
     console.log("inside on login");
-    this.isLoggedin = true;
+    this.isLoggedin = localStorage.getItem('Authorization') ? true : false;
+    this.router.navigate(['/history']).then(r => console.log(r));
     this.userDetails = $event.value;
   }
 
@@ -27,7 +35,11 @@ export class AppComponent {
     this.isLoggedin = false;
     this.userDetails = {};
     this.showThisToolbarFeature= 'login';
+    if(localStorage.getItem('Authorization')) {
+      localStorage.removeItem('Authorization');
+    }
     this.router.navigate(['/login']).then(r => console.log( 'inside logout: ', this.isLoggedin));
+
   }
 
   toggleToolbarBankingFeature($event: string) {

@@ -1,1 +1,1 @@
-{"users":[{"username":"admin","password":"admin","email":"","firstName":"","lastName":"","role":"admin"},{"username":"dev","password":"dev","email":"dev@gmail.com","firstName":"devendra","lastName":"meena","role":"user"}]}
+{"users":[{"username":"admin","password":"admin","email":"","firstName":"","lastName":"","role":"admin"},{"username":"dev","password":"dev","email":"dev@gmail.com","firstName":"devendra","lastName":"meena","role":"user"},{"username":"user3","password":"pass","email":"user3@gmail.com","firstName":"user3","lastName":"sirname","role":"user"}]}

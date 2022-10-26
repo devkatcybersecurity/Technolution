@@ -33,10 +33,11 @@ export class LoginComponent implements OnInit {
     this.user.password = data.password;
     this.authService.login(this.user)
       .subscribe((response) => {
-        console.log('response', response);
+        console.log('response in on login', response);
+        localStorage.setItem('Authorization',  JSON.stringify(response));
         this.onSignUpOrLogin.emit(response);
-        this.router.navigate(['/history']).then(r => console.log(r));
-      },
+
+        },
       error => {
         console.log('error', error);
         this.incorrectCredentials = true;
