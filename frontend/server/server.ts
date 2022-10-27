@@ -38,6 +38,27 @@ server.post('/signup', (req, res) => {
   }
 });
 
+
+server.post('/add-transaction', (req, res) => {
+  console.log('inside server: add-transaction, req.body is :  ', req.body);
+  console.log('inside server: add-transaction, req.headers is :  ', req.headers);
+  db.transactions[req.headers.authorization].push(req.body);
+  fs.writeFileSync('./server/db.json', JSON.stringify(db));
+  return res.status(201).send(req.body);
+
+});
+
+server.get('/transactions', (req, res) => {
+  const transactions = readTransactions();
+  const userTransactions = transactions[req.headers.authorization];
+  if (userTransactions) {
+    res.status(200).send(userTransactions);
+  } else {
+    res.status(401).send('User not found');
+  }
+});
+
+
 server.use('/users', (req, res, next) => {
   if (isAuthorized(req) || req.query.bypassAuth === 'true') {
     next();
@@ -74,6 +95,14 @@ function readUsers() {
   const users = JSON.parse(dbRaw).users
   return users;
 }
+
+function readTransactions() {
+  const dbRaw = fs.readFileSync('./server/db.json');
+  const transactions = JSON.parse(dbRaw).transactions
+  return transactions;
+}
+
+
 
 function getFileContent() {
 

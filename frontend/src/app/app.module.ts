@@ -45,7 +45,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { NewTransactionComponent } from './new-transaction/new-transaction.component';
 import { HistoryComponent } from './history/history.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-
+import {DataTablesModule} from "angular-datatables";
 
 @NgModule({
   declarations: [
@@ -99,7 +99,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatDatepickerModule,
     MatTooltipModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    DataTablesModule
 
   ],
   // providers - contains any services that are required by components. If a service is added to the module level, it is ava

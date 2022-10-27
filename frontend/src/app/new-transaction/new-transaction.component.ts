@@ -40,9 +40,13 @@ export class NewTransactionComponent implements OnInit {
 
   onSubmit() {
     console.log("data submitted in transaction is : ", this.transactionDetail);
+    this.transactionService.addTransaction(this.transactionDetail).subscribe((response) => {
+      console.log("response in transaction is : ", response);
+    });
+  }
     // this.transactionService.newTransaction(data).subscribe((response) => {
     //     console.log('response', response);
     //     this.router.navigate(['/history']).then(r => console.log(r));
     //   });
-  }
+
 }
