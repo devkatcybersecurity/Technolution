@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  user = { username: "", email: "", firstName: "", lastName: "", role: "" }
 
+  constructor() { }
   ngOnInit(): void {
+    // @ts-ignore
+    this.user = JSON.parse(localStorage.getItem('Authorization'));
+
+
   }
 
 

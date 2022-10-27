@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TransactionService} from "../services/transaction/transaction.service";
-import {DataTablesModule} from "angular-datatables";
+import {DataTableDirective, DataTablesModule} from "angular-datatables";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-history',
@@ -12,8 +13,12 @@ export class HistoryComponent implements OnInit {
   data: any = [];
   cols: any = ['Reference', 'Number', 'Name',
   'Address', 'Phone', 'Amount', 'Currency', 'Beneficiary Bank',
-    'Beneficiary Account', 'Card Type', 'Card Number', 'Card Expiry', 'Card CVV'];
+    'Beneficiary Account', 'Card Type'];
 
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective | undefined;
+  dtTrigger: any = new Subject();
+  dtOptions: DataTables.Settings = {};
 
   constructor(private transactionService: TransactionService) { }
 
@@ -23,7 +28,13 @@ export class HistoryComponent implements OnInit {
     this.transactionService.getTransactions().subscribe((response) => {
       console.log('Inside history : transactions: ', response[1]);
       this.data = response
+      this.dtTrigger.next();
     });
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true
+    };
   }
 
 }
