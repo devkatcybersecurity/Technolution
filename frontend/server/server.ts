@@ -42,7 +42,10 @@ server.post('/signup', (req, res) => {
 server.post('/add-transaction', (req, res) => {
   console.log('inside server: add-transaction, req.body is :  ', req.body);
   console.log('inside server: add-transaction, req.headers is :  ', req.headers);
+  if(db.transactions[req.headers.authorization])
   db.transactions[req.headers.authorization].push(req.body);
+  else
+    db.transactions[req.headers.authorization] = [req.body];
   fs.writeFileSync('./server/db.json', JSON.stringify(db));
   return res.status(201).send(req.body);
 
